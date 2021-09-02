@@ -1,3 +1,3 @@
 # Project-1
-Jana Georgievski
+Jana Georgievski  
 Joshua Lai  
