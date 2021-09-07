@@ -125,7 +125,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    /**
    * Finds the index of an item in the bag.
    * @param entry item to look for.
-   * @return the index of the item.
+   * @return the index of the item. -1 if the item was not found.
    */
    private int getIndexOf(T entry)
    {
