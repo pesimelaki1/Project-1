@@ -55,12 +55,14 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public T remove()
    {
+      checkIntegrity();
       T result = removeEntry(currentSize - 1);
       return result;
    }
    @Override
    public boolean remove(T entry)
    {
+      checkIntegrity();
       int index = getIndexOf(entry);
       T result = removeEntry(index);
       return entry.equals(result);
@@ -74,6 +76,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public int getFrequencyOf(T entry)
    {
+      checkIntegrity();
       int frequency = 0;
       for(T item:bag)
       {
@@ -85,6 +88,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public boolean contains(T entry)
    {
+      checkIntegrity();
       return getIndexOf(entry) >= 0;
    }
    @Override
