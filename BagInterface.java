@@ -15,7 +15,7 @@ interface BagInterface <T>
       @return  True if the addition is successful, or false if not. */
    public boolean add(T newEntry);
    /** Removes one unspecified entry from this bag, if possible.
-      @return  Either the removed entry, if the removalwas successful, or null. */
+      @return  Either the removed entry, if the removal was successful, or null. */
    public T remove();
    /** Removes one occurrence of a given entry from this bag, if possible.
       @param anEntry  The entry to be removed.
