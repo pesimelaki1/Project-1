@@ -21,16 +21,27 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    {
       
    }
+   /**
+   * @return the current number of items in the bag.
+   */
    @Override
    public int getCurrentSize()
    {
       return currentSize;
    }
+   /**
+   * @return true if the bag is empty. False otherwise.
+   */
    @Override
    public boolean isEmpty()
    {
       return currentSize == 0;
    }
+   /**
+   * Adds a new item to the bag.
+   * @param newEntry item of generic type to be added.
+   * @return true if addition was successful. False otherwise.
+   */
    @Override
    public boolean add(T newEntry)
    {
@@ -40,12 +51,22 @@ public class ResizableArrayBag<T> implements BagInterface<T>
       currentSize++;
       return true;
    }
+   /**
+   * Removes an item from the bag.
+   * @return the item that was removed.
+   *         Null if removal was unsuccessful.
+   */
    @Override
    public T remove()
    {
       T result = removeEntry(currentSize - 1);
       return result;
    }
+   /**
+   * Removes a specific item from the bag.
+   * @param entry item to be removed.
+   * @return true if removal was successful. False otherwise.
+   */
    @Override
    public boolean remove(T entry)
    {
@@ -53,12 +74,20 @@ public class ResizableArrayBag<T> implements BagInterface<T>
       T result = removeEntry(index);
       return entry.equals(result);
    }
+   /**
+   * Removes all items from the bag.
+   */
    @Override
    public void clear()
    {
       while(!isEmpty())
          remove();
    }
+   /**
+   * Indicates the frequency of an item.
+   * @param entry item to look for.
+   * @return number of times the item appears in the bag.
+   */
    @Override
    public int getFrequencyOf(T entry)
    {
@@ -70,11 +99,20 @@ public class ResizableArrayBag<T> implements BagInterface<T>
       }
       return frequency;
    }
+   /**
+   * Determines if the bag contains a certain item.
+   * @param entry item to look for.
+   * @return true if the bag contains the item. False otherwise.
+   */
    @Override
    public boolean contains(T entry)
    {
       return getIndexOf(entry) >= 0;
    }
+   /**
+   * Puts the contents of the bag into a new array and returns it.
+   * @return array containing the contents of the bag.
+   */
    @Override
    public T[] toArray()
    {
@@ -84,6 +122,11 @@ public class ResizableArrayBag<T> implements BagInterface<T>
          result[i] = bag[i];
       return result;
    }
+   /**
+   * Finds the index of an item in the bag.
+   * @param entry item to look for.
+   * @return the index of the item.
+   */
    private int getIndexOf(T entry)
    {
       int location = -1;
@@ -100,6 +143,11 @@ public class ResizableArrayBag<T> implements BagInterface<T>
       }
       return location;
    }
+   /**
+   * Removes an item at a certain index from the bag.
+   * @param index index of the item to be removed.
+   * @return object that was removed. Null if removal was unsuccessful.
+   */
    private T removeEntry(int index)
    {
       T objToBeRemoved = null;
