@@ -1,8 +1,12 @@
 public class LinkedBag<T> implements BagInterface<T>
 {
-   private T[] bag;
-   private int maxSize;
-   private int currentSize;
+   private Node<T> firstNode;
+   private int numberOfEntries;
+   public LinkedBag()
+   {
+      firstNode = null;
+      numberOfEntries = 0;
+   }
    @Override
    public void union()
    {
@@ -21,34 +25,47 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public int getCurrentSize()
    {
-      return currentSize;
+      return numberOfEntries;
    }
    @Override
    public boolean isEmpty()
    {
-      return currentSize == 0;
+      return firstNode == null;
    }
    @Override
    public boolean add(T newEntry)
    {
-      if(currentSize >= maxSize)
-         return false;
-      bag[currentSize] = newEntry;
-      currentSize++;
+      Node<T> newNode = new Node<T>(newEntry);
+      newNode.setNext(firstNode);
+      firstNode = newNode;
+      numberOfEntries++;
       return true;
    }
    @Override
    public T remove()
    {
-      T result = removeEntry(currentSize - 1);
+      T result = null;
+      if (firstNode != null)
+      {
+         result = firstNode.getData();
+         firstNode = firstNode.getNext();
+         numberOfEntries--;
+      }
       return result;
    }
    @Override
    public boolean remove(T entry)
    {
-      int index = getIndexOf(entry);
-      T result = removeEntry(index);
-      return entry.equals(result);
+      boolean result = false;
+      Node<T> foundNode = getReferenceTo(entry);
+      if(foundNode != null)
+      {
+         foundNode.setData(firstNode.getData());
+         firstNode = firstNode.getNext();
+         numberOfEntries--;
+         result = true;
+      }
+      return result;
    }
    @Override
    public void clear()
@@ -60,53 +77,70 @@ public class LinkedBag<T> implements BagInterface<T>
    public int getFrequencyOf(T entry)
    {
       int frequency = 0;
-      for(T item:bag)
+      Node<T> currentNode = firstNode;
+      while(currentNode != null)
       {
-         if(entry.equals(item))
+         if(entry.equals(currentNode.getData()))
             frequency++;
+         currentNode = currentNode.getNext();
       }
       return frequency;
    }
    @Override
    public boolean contains(T entry)
    {
-      return getIndexOf(entry) >= 0;
+      boolean found = false;
+      Node<T> currentNode = firstNode;
+      while(!found & currentNode != null)
+      {
+         if(entry.equals(currentNode.getData()))
+            found = true;
+         else
+            currentNode = currentNode.getNext();
+      }
+      return found;
    }
    @Override
    public T[] toArray()
    {
-      @SuppressWarnings("unchecked")
-      T[] result = (T[]) new Object[currentSize];
-      for(int i = 0; i < currentSize; i++)
-         result[i] = bag[i];
-      return result;
+      return null;
    }
-   private int getIndexOf(T entry)
+   private Node<T> getReferenceTo(T entry)
    {
-      int location = -1;
       boolean found = false;
-      int index = 0;
-      while(!found && index < currentSize)
+      Node<T> currentNode = firstNode;
+      while(!found & currentNode != null)
       {
-         if(entry.equals(bag[index]))
-         {
+         if(entry.equals(currentNode.getData()))
             found = true;
-            location = index;
-         }
-         index++;
+         else
+            currentNode = currentNode.getNext();
       }
-      return location;
+      return currentNode;
    }
-   private T removeEntry(int index)
+}
+class Node<T>
+{
+   private T data;
+   private Node<T> next;
+   public Node(T newData)
    {
-      T objToBeRemoved = null;
-      if(!isEmpty() && index >= 0)
-      {
-         objToBeRemoved = bag[index];
-         bag[index] = bag[currentSize - 1];
-         bag[currentSize - 1] = null;
-         currentSize--;
-      }
-      return objToBeRemoved;
+      data = newData;
+   }
+   public T getData()
+   {
+      return data;
+   }
+   public void setData(T newData)
+   {
+      data = newData;
+   }
+   public Node<T> getNext()
+   {
+      return next;
+   }
+   public void setNext(Node<T> newNext)
+   {
+      next = newNext;
    }
 }
