@@ -3,8 +3,19 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    private T[] bag;
    private int maxSize;
    private int currentSize;
-   public ResizableArrayBag()
+   private boolean integrityOK;
+   private final int MAX_CAPACITY = 10000;
+   public ResizableArrayBag(int initialCapacity)
    {
+      if(initialCapacity <= MAX_CAPACITY)
+      {
+         integrityOK = true;
+      }
+      else
+      {
+         throw new IllegalStateException("Attempted to create a bag larger than "
+                                         + "maximum allowed capacity.");
+      }
    }
    @Override
    public void union()
@@ -45,6 +56,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public boolean add(T newEntry)
    {
+      checkIntegrity();
       if(currentSize >= maxSize)
          return false;
       bag[currentSize] = newEntry;
@@ -59,6 +71,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public T remove()
    {
+      checkIntegrity();
       T result = removeEntry(currentSize - 1);
       return result;
    }
@@ -70,6 +83,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public boolean remove(T entry)
    {
+      checkIntegrity();
       int index = getIndexOf(entry);
       T result = removeEntry(index);
       return entry.equals(result);
@@ -91,6 +105,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public int getFrequencyOf(T entry)
    {
+      checkIntegrity();
       int frequency = 0;
       for(T item:bag)
       {
@@ -107,6 +122,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public boolean contains(T entry)
    {
+      checkIntegrity();
       return getIndexOf(entry) >= 0;
    }
    /**
@@ -159,5 +175,12 @@ public class ResizableArrayBag<T> implements BagInterface<T>
          currentSize--;
       }
       return objToBeRemoved;
+   }
+   private void checkIntegrity()
+   {
+      if(!integrityOK)
+      {
+         throw new SecurityException("ArrayBag object is corrupt.");
+      }
    }
 }
