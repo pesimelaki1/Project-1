@@ -1,5 +1,11 @@
-public class LinkedBag implements BagInterface<Object>
+public class LinkedBag<T> implements BagInterface<T>
 {
+   private T[] bag;
+   private int maxSize;
+   private int currentSize;
+   public LinkedBag()
+   {
+   }
    @Override
    public void union()
    {
@@ -15,49 +21,143 @@ public class LinkedBag implements BagInterface<Object>
    {
       
    }
+   /**
+   * @return the current number of items in the bag.
+   */
    @Override
    public int getCurrentSize()
    {
-      return 0;
+      return currentSize;
    }
+   /**
+   * @return true if the bag is empty. False otherwise.
+   */
    @Override
    public boolean isEmpty()
    {
-      return false;
+      return currentSize == 0;
    }
+   /**
+   * Adds a new item to the bag.
+   * @param newEntry item of generic type to be added.
+   * @return true if addition was successful. False otherwise.
+   */
    @Override
-   public boolean add(Object newEntry)
+   public boolean add(T newEntry)
    {
-      return false;
+      if(currentSize >= maxSize)
+         return false;
+      bag[currentSize] = newEntry;
+      currentSize++;
+      return true;
    }
+   /**
+   * Removes an item from the bag.
+   * @return the item that was removed.
+   *         Null if removal was unsuccessful.
+   */
    @Override
-   public Object remove()
+   public T remove()
    {
-      return null;
+      T result = removeEntry(currentSize - 1);
+      return result;
    }
+   /**
+   * Removes a specific item from the bag.
+   * @param entry item to be removed.
+   * @return true if removal was successful. False otherwise.
+   */
    @Override
-   public boolean remove(Object anEntry)
+   public boolean remove(T entry)
    {
-      return false;
+      int index = getIndexOf(entry);
+      T result = removeEntry(index);
+      return entry.equals(result);
    }
+   /**
+   * Removes all items from the bag.
+   */
    @Override
    public void clear()
    {
-      
+      while(!isEmpty())
+         remove();
    }
+   /**
+   * Indicates the frequency of an item.
+   * @param entry item to look for.
+   * @return number of times the item appears in the bag.
+   */
    @Override
-   public int getFrequencyOf(Object anEntry)
+   public int getFrequencyOf(T entry)
    {
-      return 0;
+      int frequency = 0;
+      for(T item:bag)
+      {
+         if(entry.equals(item))
+            frequency++;
+      }
+      return frequency;
    }
+   /**
+   * Determines if the bag contains a certain item.
+   * @param entry item to look for.
+   * @return true if the bag contains the item. False otherwise.
+   */
    @Override
-   public boolean contains(Object anEntry)
+   public boolean contains(T entry)
    {
-      return false;
+      return getIndexOf(entry) >= 0;
    }
+   /**
+   * Puts the contents of the bag into a new array and returns it.
+   * @return array containing the contents of the bag.
+   */
    @Override
-   public Object[] toArray()
+   public T[] toArray()
    {
-      return null;
+      @SuppressWarnings("unchecked")
+      T[] result = (T[]) new Object[currentSize];
+      for(int i = 0; i < currentSize; i++)
+         result[i] = bag[i];
+      return result;
+   }
+   /**
+   * Finds the index of an item in the bag.
+   * @param entry item to look for.
+   * @return the index of the item. -1 if the item was not found.
+   */
+   private int getIndexOf(T entry)
+   {
+      int location = -1;
+      boolean found = false;
+      int index = 0;
+      while(!found && index < currentSize)
+      {
+         if(entry.equals(bag[index]))
+         {
+            found = true;
+            location = index;
+         }
+         index++;
+      }
+      return location;
+   }
+   /**
+   * Removes an item at a certain index from the bag.
+   * @param index index of the item to be removed.
+   * @return object that was removed. Null if removal was unsuccessful.
+   */
+   private T removeEntry(int index)
+   {
+      T objToBeRemoved = null;
+      if(!isEmpty() && index >= 0)
+      {
+         objToBeRemoved = bag[index];
+         bag[index] = bag[currentSize - 1];
+         bag[currentSize - 1] = null;
+         currentSize--;
+      }
+      return objToBeRemoved;
    }
 }
