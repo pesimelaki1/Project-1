@@ -103,7 +103,17 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public T[] toArray()
    {
-      return null;
+      Node<T> currentNode = firstNode;
+      int counter = 0;
+      @SuppressWarnings("unchecked")
+      T[] result = (T[]) new Object[numberOfEntries];
+      while(currentNode != null)
+      {
+         result[counter] = currentNode.getData();
+         currentNode = currentNode.getNext();
+         counter++;
+      }
+      return result;
    }
    private Node<T> getReferenceTo(T entry)
    {
