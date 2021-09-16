@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ResizableArrayBag<T> implements BagInterface<T>
 {
    private T[] bag;
@@ -32,6 +34,22 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    {
       
    }
+   private void doubleCapacity()
+   {
+      int newLength = 2*bag.length;
+      resize(newLength);
+   } 
+   private void resize(int newSize)
+   {
+      T[] newBag = Arrays.copyOf(bag, newSize);
+      bag = newBag;
+      checkCapacity(bag.length);
+   }
+   private void checkCapacity(int capacity)
+   {
+      if(currentSize >= maxSize)
+         throw new IllegalStateException();
+   }
    /**
    * @return the current number of items in the bag.
    */
@@ -58,7 +76,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    {
       checkIntegrity();
       if(currentSize >= maxSize)
-         return false;
+         doubleCapacity();
       bag[currentSize] = newEntry;
       currentSize++;
       return true;
