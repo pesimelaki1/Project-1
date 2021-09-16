@@ -1,21 +1,11 @@
 public class LinkedBag<T> implements BagInterface<T>
 {
-   private T[] bag;
-   private int maxSize;
-   private int currentSize;
-   private boolean integrityOK;
-   private final int MAX_CAPACITY = 10000;
-   public LinkedBag(int initialCapacity)
+   private Node<T> firstNode;
+   private int numberOfEntries;
+   public LinkedBag()
    {
-      if(initialCapacity <= MAX_CAPACITY)
-      {
-         integrityOK = true;
-      }
-      else
-      {
-         throw new IllegalStateException("Attempted to create a bag larger than "
-                                         + "maximum allowed capacity.");
-      }
+      firstNode = null;
+      numberOfEntries = 0;
    }
    @Override
    public void union()
@@ -38,7 +28,7 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public int getCurrentSize()
    {
-      return currentSize;
+      return numberOfEntries;
    }
    /**
    * @return true if the bag is empty. False otherwise.
@@ -46,7 +36,7 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public boolean isEmpty()
    {
-      return currentSize == 0;
+      return firstNode == null;
    }
    /**
    * Adds a new item to the bag.
@@ -56,11 +46,10 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public boolean add(T newEntry)
    {
-      checkIntegrity();
-      if(currentSize >= maxSize)
-         return false;
-      bag[currentSize] = newEntry;
-      currentSize++;
+      Node<T> newNode = new Node<T>(newEntry);
+      newNode.setNext(firstNode);
+      firstNode = newNode;
+      numberOfEntries++;
       return true;
    }
    /**
@@ -71,8 +60,13 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public T remove()
    {
-      checkIntegrity();
-      T result = removeEntry(currentSize - 1);
+      T result = null;
+      if (firstNode != null)
+      {
+         result = firstNode.getData();
+         firstNode = firstNode.getNext();
+         numberOfEntries--;
+      }
       return result;
    }
    /**
@@ -83,10 +77,16 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public boolean remove(T entry)
    {
-      checkIntegrity();
-      int index = getIndexOf(entry);
-      T result = removeEntry(index);
-      return entry.equals(result);
+      boolean result = false;
+      Node<T> foundNode = getReferenceTo(entry);
+      if(foundNode != null)
+      {
+         foundNode.setData(firstNode.getData());
+         firstNode = firstNode.getNext();
+         numberOfEntries--;
+         result = true;
+      }
+      return result;
    }
    /**
    * Removes all items from the bag.
@@ -105,12 +105,13 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public int getFrequencyOf(T entry)
    {
-      checkIntegrity();
       int frequency = 0;
-      for(T item:bag)
+      Node<T> currentNode = firstNode;
+      while(currentNode != null)
       {
-         if(entry.equals(item))
+         if(entry.equals(currentNode.getData()))
             frequency++;
+         currentNode = currentNode.getNext();
       }
       return frequency;
    }
@@ -122,8 +123,16 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public boolean contains(T entry)
    {
-      checkIntegrity();
-      return getIndexOf(entry) >= 0;
+      boolean found = false;
+      Node<T> currentNode = firstNode;
+      while(!found & currentNode != null)
+      {
+         if(entry.equals(currentNode.getData()))
+            found = true;
+         else
+            currentNode = currentNode.getNext();
+      }
+      return found;
    }
    /**
    * Puts the contents of the bag into a new array and returns it.
@@ -132,55 +141,57 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public T[] toArray()
    {
+      Node<T> currentNode = firstNode;
+      int counter = 0;
       @SuppressWarnings("unchecked")
-      T[] result = (T[]) new Object[currentSize];
-      for(int i = 0; i < currentSize; i++)
-         result[i] = bag[i];
+      T[] result = (T[]) new Object[numberOfEntries];
+      while(currentNode != null)
+      {
+         result[counter] = currentNode.getData();
+         currentNode = currentNode.getNext();
+         counter++;
+      }
       return result;
    }
    /**
-   * Finds the index of an item in the bag.
-   * @param entry item to look for.
-   * @return the index of the item. -1 if the item was not found.
+   * 
    */
-   private int getIndexOf(T entry)
+   private Node<T> getReferenceTo(T entry)
    {
-      int location = -1;
       boolean found = false;
-      int index = 0;
-      while(!found && index < currentSize)
+      Node<T> currentNode = firstNode;
+      while(!found & currentNode != null)
       {
-         if(entry.equals(bag[index]))
-         {
+         if(entry.equals(currentNode.getData()))
             found = true;
-            location = index;
-         }
-         index++;
+         else
+            currentNode = currentNode.getNext();
       }
-      return location;
+      return currentNode;
    }
-   /**
-   * Removes an item at a certain index from the bag.
-   * @param index index of the item to be removed.
-   * @return object that was removed. Null if removal was unsuccessful.
-   */
-   private T removeEntry(int index)
+}
+class Node<T>
+{
+   private T data;
+   private Node<T> next;
+   public Node(T newData)
    {
-      T objToBeRemoved = null;
-      if(!isEmpty() && index >= 0)
-      {
-         objToBeRemoved = bag[index];
-         bag[index] = bag[currentSize - 1];
-         bag[currentSize - 1] = null;
-         currentSize--;
-      }
-      return objToBeRemoved;
+      data = newData;
    }
-   private void checkIntegrity()
+   public T getData()
    {
-      if(!integrityOK)
-      {
-         throw new SecurityException("ArrayBag object is corrupt.");
-      }
+      return data;
+   }
+   public void setData(T newData)
+   {
+      data = newData;
+   }
+   public Node<T> getNext()
+   {
+      return next;
+   }
+   public void setNext(Node<T> newNext)
+   {
+      next = newNext;
    }
 }
