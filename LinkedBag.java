@@ -22,16 +22,27 @@ public class LinkedBag<T> implements BagInterface<T>
    {
       
    }
+   /**
+   * @return the current number of items in the bag.
+   */
    @Override
    public int getCurrentSize()
    {
       return numberOfEntries;
    }
+   /**
+   * @return true if the bag is empty. False otherwise.
+   */
    @Override
    public boolean isEmpty()
    {
       return firstNode == null;
    }
+   /**
+   * Adds a new item to the bag.
+   * @param newEntry item of generic type to be added.
+   * @return true if addition was successful. False otherwise.
+   */
    @Override
    public boolean add(T newEntry)
    {
@@ -41,6 +52,11 @@ public class LinkedBag<T> implements BagInterface<T>
       numberOfEntries++;
       return true;
    }
+   /**
+   * Removes an item from the bag.
+   * @return the item that was removed.
+   *         Null if removal was unsuccessful.
+   */
    @Override
    public T remove()
    {
@@ -53,6 +69,11 @@ public class LinkedBag<T> implements BagInterface<T>
       }
       return result;
    }
+   /**
+   * Removes a specific item from the bag.
+   * @param entry item to be removed.
+   * @return true if removal was successful. False otherwise.
+   */
    @Override
    public boolean remove(T entry)
    {
@@ -67,12 +88,20 @@ public class LinkedBag<T> implements BagInterface<T>
       }
       return result;
    }
+   /**
+   * Removes all items from the bag.
+   */
    @Override
    public void clear()
    {
       while(!isEmpty())
          remove();
    }
+   /**
+   * Indicates the frequency of an item.
+   * @param entry item to look for.
+   * @return number of times the item appears in the bag.
+   */
    @Override
    public int getFrequencyOf(T entry)
    {
@@ -86,6 +115,11 @@ public class LinkedBag<T> implements BagInterface<T>
       }
       return frequency;
    }
+   /**
+   * Determines if the bag contains a certain item.
+   * @param entry item to look for.
+   * @return true if the bag contains the item. False otherwise.
+   */
    @Override
    public boolean contains(T entry)
    {
@@ -100,6 +134,10 @@ public class LinkedBag<T> implements BagInterface<T>
       }
       return found;
    }
+   /**
+   * Puts the contents of the bag into a new array and returns it.
+   * @return array containing the contents of the bag.
+   */
    @Override
    public T[] toArray()
    {
@@ -115,6 +153,9 @@ public class LinkedBag<T> implements BagInterface<T>
       }
       return result;
    }
+   /**
+   * 
+   */
    private Node<T> getReferenceTo(T entry)
    {
       boolean found = false;
