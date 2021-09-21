@@ -1,8 +1,8 @@
 interface BagInterface <T>
 {
-   public void union();
-   public void intersection();
-   public void difference();
+   public BagInterface<T> union(BagInterface<T> otheInterface);
+   public BagInterface<T> intersection(BagInterface<T> otheInterface);
+   public BagInterface<T> difference(BagInterface<T> otheInterface);
    
    /** Gets the current number of entries in this bag.
       @return  The integer number of entries currently in the bag. */

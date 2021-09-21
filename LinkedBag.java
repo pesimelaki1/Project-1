@@ -8,19 +8,22 @@ public class LinkedBag<T> implements BagInterface<T>
       numberOfEntries = 0;
    }
    @Override
-   public void union()
+   public BagInterface<T> union(BagInterface<T> otherBag)
    {
+      this.toArray();
+      otherBag.toArray();
       
+      return null;
    }
    @Override
-   public void intersection()
+   public BagInterface<T> intersection(BagInterface<T> otherBag)
    {
-      
+      return null;
    }
    @Override
-   public void difference()
+   public BagInterface<T> difference(BagInterface<T> otherBag)
    {
-      
+      return null;
    }
    /**
    * @return the current number of items in the bag.
