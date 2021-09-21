@@ -7,10 +7,19 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    private int currentSize;
    private boolean integrityOK;
    private final int MAX_CAPACITY = 10000;
+   private static final int DEFAULT_CAPACITY = 25;
+   public ResizableArrayBag()
+   {
+      this(DEFAULT_CAPACITY);
+   }
    public ResizableArrayBag(int initialCapacity)
    {
       if(initialCapacity <= MAX_CAPACITY)
       {
+         @SuppressWarnings("unchecked")
+         T[] tempBag = (T[])new Object[initialCapacity]; // Unchecked cast
+         bag = tempBag;
+         currentSize = 0;
          integrityOK = true;
       }
       else
