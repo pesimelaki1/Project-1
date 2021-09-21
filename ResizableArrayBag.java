@@ -20,19 +20,19 @@ public class ResizableArrayBag<T> implements BagInterface<T>
       }
    }
    @Override
-   public void union()
+   public BagInterface<T> union(BagInterface<T> otherBag)
    {
-      
+      return null;
    }
    @Override
-   public void intersection()
+   public BagInterface<T> intersection(BagInterface<T> otherBag)
    {
-      
+      return null;
    }
    @Override
-   public void difference()
+   public BagInterface<T> difference(BagInterface<T> otherBag)
    {
-      
+      return null;
    }
    private void doubleCapacity()
    {
