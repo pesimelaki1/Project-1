@@ -10,10 +10,18 @@ public class LinkedBag<T> implements BagInterface<T>
    @Override
    public BagInterface<T> union(BagInterface<T> otherBag)
    {
-      this.toArray();
-      otherBag.toArray();
-      
-      return null;
+      T[] thisArray = this.toArray();
+      T[] otherArray = otherBag.toArray();
+      LinkedBag<T> result = new LinkedBag<T>();
+      for(int i = 0; i < thisArray.length; i++)
+      {
+         result.add(thisArray[i]);
+      }
+      for(int i = 0; i < otherArray.length; i++)
+      {
+         result.add(otherArray[i]);
+      }
+      return result;
    }
    @Override
    public BagInterface<T> intersection(BagInterface<T> otherBag)
