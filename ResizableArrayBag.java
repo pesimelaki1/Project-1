@@ -47,12 +47,46 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    @Override
    public BagInterface<T> intersection(BagInterface<T> otherBag)
    {
-      return null;
+      T[] thisArray = this.toArray();
+      T[] otherArray = otherBag.toArray();
+      boolean[] used = new boolean[otherArray.length];
+      ResizableArrayBag<T> result = new ResizableArrayBag<T>();
+      for(int i = 0; i < thisArray.length; i++)
+      {
+         for(int j = 0; j < otherArray.length; j++)
+         {
+            if(!used[j] & thisArray[i].equals(otherArray[j]))
+            {
+               result.add(thisArray[i]);
+               used[j] = true;
+            }
+         }
+      }
+      return result;
    }
    @Override
    public BagInterface<T> difference(BagInterface<T> otherBag)
    {
-      return null;
+      T[] thisArray = this.toArray();
+      T[] otherArray = otherBag.toArray();
+      boolean[] used = new boolean[otherArray.length];
+      ResizableArrayBag<T> result = new ResizableArrayBag<T>();
+      for(T item : thisArray)
+      {
+         result.add(item);
+      }
+      for(int i = 0; i < thisArray.length; i++)
+      {
+         for(int j = 0; j < otherArray.length; j++)
+         {
+            if(!used[j] & thisArray[i].equals(otherArray[j]))
+            {
+               result.remove(thisArray[i]);
+               used[j] = true;
+            }
+         }
+      }
+      return result;
    }
    private void doubleCapacity()
    {
