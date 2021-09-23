@@ -24,8 +24,8 @@ public class ResizableArrayBag<T> implements BagInterface<T>
       }
       else
       {
-         throw new IllegalStateException("Attempted to create a bag larger than "
-                                         + "maximum allowed capacity.");
+         throw new IllegalStateException("Attempted to create a bag whose capacity exceeds " +
+                                         "allowed maximum of " + MAX_CAPACITY);
       }
    }
    @Override
@@ -101,8 +101,9 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    }
    private void checkCapacity(int capacity)
    {
-      if(currentSize >= maxSize)
-         throw new IllegalStateException();
+      if (capacity > MAX_CAPACITY)
+         throw new IllegalStateException("Attempted to create a bag whose capacity exceeds " +
+                                         "allowed maximum of " + MAX_CAPACITY);
    }
    /**
    * @return the current number of items in the bag.
