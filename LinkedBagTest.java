@@ -2,10 +2,45 @@ public class LinkedBagTest
 {
    public static void main(String[] args)
    {
-      LinkedBag<Integer> LB = new LinkedBag<Integer>();
-      LB.add(1);
-      LB.add(2);
-      LB.add(1);
-      System.out.print(LB.getFrequencyOf(1));
+      BagInterface<String> bag1 = new LinkedBag<>();
+      BagInterface<String> bag2 = new LinkedBag<>();
+      String[] items1 = {"a", "b", "c"};
+      String[] items2 = {"b", "b", "d", "e"};
+      testAdd(bag1, items1);
+      testAdd(bag2, items2);
+
+      BagInterface<String> newBag = bag1.union(bag2);
+      displayBag(newBag);
+      newBag = bag1.intersection(bag2);
+      displayBag(newBag);
+      newBag = bag1.difference(bag2);
+      displayBag(newBag);
+      newBag = bag2.difference(bag1);
+      displayBag(newBag);
+
    }
+   // Tests the method add.
+	private static void testAdd(BagInterface<String> aBag, String[] content)
+	{
+		System.out.print("Adding to the bag: ");
+		for (int index = 0; index < content.length; index++)
+		{
+			aBag.add(content[index]);
+         System.out.print(content[index] + " ");
+		} // end for
+      System.out.println();
+	} // end testAdd
+   // Tests the method toArray while displaying the bag.
+	private static void displayBag(BagInterface<String> aBag)
+	{
+		System.out.println("The bag contains " + aBag.getCurrentSize() +
+		                   " string(s), as follows:");		
+		Object[] bagArray = aBag.toArray();
+		for (int index = 0; index < bagArray.length; index++)
+		{
+			System.out.print(bagArray[index] + " ");
+		} // end for
+		
+		System.out.println();
+	} // end displayBag
 }

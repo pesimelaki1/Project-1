@@ -3,7 +3,6 @@ import java.util.Arrays;
 public class ResizableArrayBag<T> implements BagInterface<T>
 {
    private T[] bag;
-   private int maxSize;
    private int currentSize;
    private boolean integrityOK;
    private final int MAX_CAPACITY = 10000;
@@ -59,6 +58,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
             {
                result.add(thisArray[i]);
                used[j] = true;
+               break;
             }
          }
       }
@@ -83,6 +83,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
             {
                result.remove(thisArray[i]);
                used[j] = true;
+               break;
             }
          }
       }
@@ -130,7 +131,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    public boolean add(T newEntry)
    {
       checkIntegrity();
-      if(currentSize >= maxSize)
+      if(currentSize >= bag.length)
          doubleCapacity();
       bag[currentSize] = newEntry;
       currentSize++;

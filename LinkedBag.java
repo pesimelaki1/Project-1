@@ -38,6 +38,7 @@ public class LinkedBag<T> implements BagInterface<T>
             {
                result.add(thisArray[i]);
                used[j] = true;
+               break;
             }
          }
       }
@@ -62,6 +63,7 @@ public class LinkedBag<T> implements BagInterface<T>
             {
                result.remove(thisArray[i]);
                used[j] = true;
+               break;
             }
          }
       }
