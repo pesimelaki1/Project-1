@@ -9,7 +9,13 @@ public class ArrayBagTest
       testAdd(bag1, items1);
       testAdd(bag2, items2);
 
-      BagInterface<String> newBag = bag1.intersection(bag2);
+      BagInterface<String> newBag = bag1.union(bag2);
+      displayBag(newBag);
+      newBag = bag1.intersection(bag2);
+      displayBag(newBag);
+      newBag = bag1.difference(bag2);
+      displayBag(newBag);
+      newBag = bag2.difference(bag1);
       displayBag(newBag);
 
    }
