@@ -2,9 +2,9 @@ package project1;
 
 public interface BagInterface <T>
 {
-   public BagInterface<T> union(BagInterface<T> otheInterface);
-   public BagInterface<T> intersection(BagInterface<T> otheInterface);
-   public BagInterface<T> difference(BagInterface<T> otheInterface);
+   public BagInterface<T> union(BagInterface<T> otherInterface);
+   public BagInterface<T> intersection(BagInterface<T> otherInterface);
+   public BagInterface<T> difference(BagInterface<T> otherInterface);
    
    /** Gets the current number of entries in this bag.
       @return  The integer number of entries currently in the bag. */
