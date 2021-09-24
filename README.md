@@ -1,9 +1,9 @@
 # Project-1
 Jana Georgievski  
--Wrote part of javadoc documentation for ResizableArrayBag and LinkedBag
--Wrote part of test classes
+-Wrote part of javadoc documentation for ResizableArrayBag and LinkedBag  
+-Wrote part of test classes  
 -Wrote Big O Notation  
--Edited together video
+-Edited together video  
 
 Joshua Lai  
 -Wrote ResizableArrayBag and LinkedBag
