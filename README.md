@@ -13,4 +13,4 @@ Joshua Lai
 
 Extra features: JUnit test framework with JUnit 4 (JavaTest.java)  
 
-Javadoc Page: https://github.com/OrbinWaffle/Project-1/blob/main/javadoc/index.html
+Javadoc Page: https://raw.githack.com/OrbinWaffle/Project-1/main/javadoc/index.html
