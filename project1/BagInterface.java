@@ -1,3 +1,5 @@
+package project1;
+
 interface BagInterface <T>
 {
    public BagInterface<T> union(BagInterface<T> otheInterface);
