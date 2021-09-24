@@ -1,3 +1,5 @@
+package project1;
+
 import java.util.Arrays;
 
 public class ResizableArrayBag<T> implements BagInterface<T>
