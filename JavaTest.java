@@ -1,10 +1,11 @@
-package project1;
-
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import project1.BagInterface;
+import project1.LinkedBag;
+import project1.ResizableArrayBag;
 
 public class JavaTest extends TestCase
 {
