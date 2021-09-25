@@ -14,7 +14,7 @@ public class LinkedBag<T> implements BagInterface<T>
    {
       T[] thisArray = this.toArray();
       T[] otherArray = otherBag.toArray();
-      LinkedBag<T> result = new LinkedBag<T>();
+      BagInterface<T> result = new LinkedBag<T>();
       for(int i = 0; i < thisArray.length; i++)
       {
          result.add(thisArray[i]);
@@ -31,7 +31,7 @@ public class LinkedBag<T> implements BagInterface<T>
       T[] thisArray = this.toArray();
       T[] otherArray = otherBag.toArray();
       boolean[] used = new boolean[otherArray.length];
-      LinkedBag<T> result = new LinkedBag<T>();
+      BagInterface<T> result = new LinkedBag<T>();
       for(int i = 0; i < thisArray.length; i++)
       {
          for(int j = 0; j < otherArray.length; j++)
@@ -52,7 +52,7 @@ public class LinkedBag<T> implements BagInterface<T>
       T[] thisArray = this.toArray();
       T[] otherArray = otherBag.toArray();
       boolean[] used = new boolean[otherArray.length];
-      LinkedBag<T> result = new LinkedBag<T>();
+      BagInterface<T> result = new LinkedBag<T>();
       for(T item : thisArray)
       {
          result.add(item);

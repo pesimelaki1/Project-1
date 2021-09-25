@@ -34,7 +34,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
    {
       T[] thisArray = this.toArray();
       T[] otherArray = otherBag.toArray();
-      ResizableArrayBag<T> result = new ResizableArrayBag<T>(thisArray.length + otherArray.length);
+      BagInterface<T> result = new ResizableArrayBag<T>(thisArray.length + otherArray.length);
       for(int i = 0; i < thisArray.length; i++)
       {
          result.add(thisArray[i]);
@@ -51,7 +51,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
       T[] thisArray = this.toArray();
       T[] otherArray = otherBag.toArray();
       boolean[] used = new boolean[otherArray.length];
-      ResizableArrayBag<T> result = new ResizableArrayBag<T>();
+      BagInterface<T> result = new ResizableArrayBag<T>();
       for(int i = 0; i < thisArray.length; i++)
       {
          for(int j = 0; j < otherArray.length; j++)
@@ -72,7 +72,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>
       T[] thisArray = this.toArray();
       T[] otherArray = otherBag.toArray();
       boolean[] used = new boolean[otherArray.length];
-      ResizableArrayBag<T> result = new ResizableArrayBag<T>();
+      BagInterface<T> result = new ResizableArrayBag<T>();
       for(T item : thisArray)
       {
          result.add(item);
